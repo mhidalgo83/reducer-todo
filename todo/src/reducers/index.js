@@ -25,10 +25,12 @@ export const todoReducer = (state, action) => {
             return { ...todo, completed: !todo.completed };
           }
           return todo;
-
-          //   todo.id === action.payload
-          //     ? { ...todo, completed: !todo.completed }
-          //     : todo;
+        }),
+      };
+    case "CLEAR_TODOS":
+      return {
+        todos: state.todos.filter((todo) => {
+          return !todo.completed;
         }),
       };
     default:

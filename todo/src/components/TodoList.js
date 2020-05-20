@@ -6,7 +6,7 @@ const TodoList = () => {
   const [todoState, dispatch] = useReducer(todoReducer, initialState);
 
   const [newTodo, setNewTodo] = useState("");
-
+  
   const handleChanges = (e) => {
     setNewTodo(e.target.value);
   };
@@ -17,25 +17,27 @@ const TodoList = () => {
     setNewTodo("");
   };
 
-  const toggleCompletedTodo = id => {
+  const toggleCompletedTodo = (id) => {
     dispatch({ type: "TOGGLE_TODO", payload: id });
+  };
+
+  const clearCompletedTodos = (e) => {
+    e.preventDefault();
+    dispatch({ type: "CLEAR_TODOS"});
   };
 
   return (
     <div>
-      <ul>
-        {todoState.todos.map((todo) => {
-          console.log(todo.id);
-          return (
-            <Todo
-              key={todo.id}
-              todo={todo}
-              toggleCompletedTodo={toggleCompletedTodo}
-            />
-          );
-        })}
-      </ul>
-
+      {todoState.todos.map((todo) => {
+        
+        return (
+          <Todo
+            key={todo.id}
+            todo={todo}
+            toggleCompletedTodo={toggleCompletedTodo}
+          />
+        );
+      })}
       <div>
         <input
           type="text"
@@ -44,6 +46,7 @@ const TodoList = () => {
           onChange={handleChanges}
         ></input>
         <button onClick={handleTodoClick}>Add Todo</button>
+        <button onClick={clearCompletedTodos}>Clear Completed</button>
       </div>
     </div>
   );

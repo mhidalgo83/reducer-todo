@@ -6,12 +6,12 @@ const Todo = (props) => {
     props.toggleCompletedTodo(props.todo.id);
   };
   return (
-    <li
+    <div
       className={props.todo.completed === true ? "completed" : ""}
       onClick={handleClick}
     >
       {props.todo.item}
-    </li>
+    </div>
   );
 };
 
