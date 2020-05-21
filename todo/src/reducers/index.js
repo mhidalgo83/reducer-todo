@@ -1,11 +1,15 @@
+import moment from "moment";
+moment().format();
+
 export const initialState = {
   todos: [
     {
       item: "Wash car",
       completed: false,
       id: 1,
+      timeCompleted: "",
     },
-    { item: "Cook breakfast", completed: false, id: 2 },
+    { item: "Cook breakfast", completed: false, id: 2, timeCompleted: "" },
   ],
 };
 
@@ -15,14 +19,24 @@ export const todoReducer = (state, action) => {
       return {
         todos: [
           ...state.todos,
-          { item: action.payload, completed: false, id: Date.now() },
+          {
+            item: action.payload,
+            completed: false,
+            id: Date.now(),
+            timeCompleted: "",
+          },
         ],
       };
     case "TOGGLE_TODO":
       return {
         todos: state.todos.map((todo) => {
           if (todo.id === action.payload) {
-            return { ...todo, completed: !todo.completed };
+            return {
+              ...todo,
+              completed: !todo.completed,
+              dateCompleted: moment().format("MMM Do YY"),
+              timeCompleted: moment().format("h:mm a"),
+            };
           }
           return todo;
         }),
